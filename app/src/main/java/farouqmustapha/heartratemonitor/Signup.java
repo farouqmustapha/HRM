@@ -15,6 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import static java.lang.Boolean.FALSE;
 
 public class Signup extends AppCompatActivity {
 
@@ -22,6 +28,7 @@ public class Signup extends AppCompatActivity {
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString().trim();
+                final String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
@@ -90,6 +97,16 @@ public class Signup extends AppCompatActivity {
                                     Toast.makeText(Signup.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    if (user != null) {
+                                        String uid = user.getUid();
+                                        Toast.makeText(getApplicationContext(), "Current User ID is "+uid, Toast.LENGTH_SHORT).show();
+                                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        mDatabase.child("Users").child(uid).child("email").setValue(email);
+                                        mDatabase.child("Users").child(uid).child("role").setValue("patient");
+                                        mDatabase.child("Users").child(uid).child("profileEdited").setValue(FALSE);
+
+                                    }
                                     startActivity(new Intent(Signup.this, MainActivity.class));
                                     finish();
                                 }
