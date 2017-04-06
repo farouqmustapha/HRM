@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
                 startActivity(new Intent(MainActivity.this, Login.class));
             }
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

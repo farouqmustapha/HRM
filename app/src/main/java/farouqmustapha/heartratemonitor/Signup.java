@@ -33,6 +33,14 @@ public class Signup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(Signup.this, MainActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_signup);
 
         //Get Firebase auth instance
@@ -107,8 +115,12 @@ public class Signup extends AppCompatActivity {
                                         mDatabase.child("Users").child(uid).child("profileEdited").setValue(FALSE);
 
                                     }
-                                    startActivity(new Intent(Signup.this, MainActivity.class));
-                                    finish();
+//                                    startActivity(new Intent(Signup.this, MainActivity.class));
+//                                    finish();
+                                    Intent i = new Intent(Signup.this, MainActivity.class);
+                                    // set the new task and clear flags
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(i);
                                 }
                             }
                         });
