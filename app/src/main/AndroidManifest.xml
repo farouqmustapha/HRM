@@ -16,7 +16,7 @@
         </activity>
         <activity
             android:name=".Signup"
-            android:label="Register"
+            android:label="Pulse Keeper"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login"
-            android:label="Login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".Login"></activity>
         <activity android:name=".ResetPassword">
         </activity>
     </application>
