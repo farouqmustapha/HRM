@@ -40,4 +40,5 @@
         <item>AB+</item>
         <item>AB-</item>
     </string-array>
+    <string name="title_activity_heart_rate">HeartRate</string>
 </resources>

@@ -3,8 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="farouqmustapha.heartratemonitor.MainActivity">
     <item
+        android:id="@+id/action_heart_rate"
+        android:orderInCategory="100"
+        android:title="Heart Rate"
+        app:showAsAction="never" ></item>
+    <item
+        android:id="@+id/action_symptoms_diary"
+        android:orderInCategory="100"
+        android:title="Symptoms Diary"
+        app:showAsAction="never" ></item>
+    <item
+        android:id="@+id/action_manage_info"
+        android:orderInCategory="100"
+        android:title="Manage Personal Info"
+        app:showAsAction="never" ></item>
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="Logout"
-        app:showAsAction="never" />
+        app:showAsAction="never" ></item>
 </menu>
