@@ -1,22 +1,42 @@
 package farouqmustapha.heartratemonitor;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class ManageInfo extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
+
+    private EditText inputName;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_manage_info);
+
+        inputName = (EditText) findViewById(R.id.editName);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                String Name = inputName.getText().toString();
+                Toast.makeText(getApplicationContext(), "Your name is "+Name, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -25,6 +45,7 @@ public class ManageInfo extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
