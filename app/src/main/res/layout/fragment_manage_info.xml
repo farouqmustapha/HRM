@@ -28,27 +28,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginStart="8dp" />
 
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="395dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textCapWords|textPersonName"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent" />
-
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone Number"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/editText3"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/editText21" />
 
             <EditText
                 android:id="@+id/editText4"
@@ -78,14 +67,14 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textCapWords|textMultiLine|textPostalAddress"
-                android:layout_marginTop="0dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
                 android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.0" />
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -105,20 +94,19 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="0dp"
                 android:ems="10"
                 android:inputType="number"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintTop_toBottomOf="@+id/textView7"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Blood Type"
-                android:layout_marginStart="206dp"
                 tools:layout_editor_absoluteX="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/editText8" />
@@ -130,7 +118,6 @@
                 android:entries="@array/blood_types"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
-                android:layout_marginStart="18dp"
                 tools:layout_editor_absoluteX="8dp" />
 
             <TextView
@@ -138,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weight (Kg)"
-                tools:layout_editor_absoluteY="659dp"
+                tools:layout_editor_absoluteY="1139dp"
                 tools:layout_editor_absoluteX="0dp" />
 
             <EditText
@@ -147,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                tools:layout_editor_absoluteY="675dp"
+                tools:layout_editor_absoluteY="1155dp"
                 tools:layout_editor_absoluteX="0dp" />
 
             <TextView
@@ -155,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Height (meter)"
-                tools:layout_editor_absoluteY="659dp"
+                tools:layout_editor_absoluteY="1139dp"
                 tools:layout_editor_absoluteX="94dp" />
 
             <EditText
@@ -164,25 +151,24 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                tools:layout_editor_absoluteY="675dp"
+                tools:layout_editor_absoluteY="1155dp"
                 tools:layout_editor_absoluteX="94dp" />
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="6dp"
                 android:text="Weight (Kg)"
                 app:layout_constraintTop_toBottomOf="@+id/editText8"
                 app:layout_constraintLeft_toRightOf="@+id/textView8"
-                android:layout_marginLeft="24dp" />
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp" />
 
             <EditText
                 android:id="@+id/editText18"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="-1dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 app:layout_constraintLeft_toLeftOf="@+id/textView20"
@@ -196,18 +182,85 @@
                 android:layout_marginTop="7dp"
                 app:layout_constraintTop_toBottomOf="@+id/editText8"
                 app:layout_constraintLeft_toRightOf="@+id/textView20"
-                android:layout_marginLeft="24dp" />
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp" />
 
             <EditText
                 android:id="@+id/editText19"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 app:layout_constraintLeft_toLeftOf="@+id/textView21"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="40dp"
+                android:text="Emergency Contact Person Name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText18"
+                android:layout_marginStart="8dp" />
+
+            <EditText
+                android:id="@+id/editText20"
+                android:layout_width="395dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:inputType="textCapWords|textPersonName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <EditText
+                android:id="@+id/editText21"
+                android:layout_width="395dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:inputType="textCapWords|textPersonName"
+                android:text="Name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Emergency Contact Person Number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText20" />
+
+            <EditText
+                android:id="@+id/editText22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Save"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText22" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
