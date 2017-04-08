@@ -120,14 +120,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 tools:layout_editor_absoluteX="8dp" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Weight (Kg)"
-                tools:layout_editor_absoluteY="1139dp"
-                tools:layout_editor_absoluteX="0dp" />
-
             <EditText
                 android:id="@+id/editText9"
                 android:layout_width="wrap_content"
@@ -136,14 +128,6 @@
                 android:inputType="numberDecimal"
                 tools:layout_editor_absoluteY="1155dp"
                 tools:layout_editor_absoluteX="0dp" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Height (meter)"
-                tools:layout_editor_absoluteY="1139dp"
-                tools:layout_editor_absoluteX="94dp" />
 
             <EditText
                 android:id="@+id/editText10"
