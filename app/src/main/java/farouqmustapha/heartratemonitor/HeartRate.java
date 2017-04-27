@@ -196,7 +196,7 @@ public class HeartRate extends AppCompatActivity implements OnItemSelectedListen
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(HeartRate.this, SymptomsDiary.class));
+            startActivity(new Intent(HeartRate.this, ViewSymptomsDiary.class));
             finish();
         }
         else if(id == R.id.action_manage_info){

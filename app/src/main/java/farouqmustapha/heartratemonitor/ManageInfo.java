@@ -129,7 +129,7 @@ public class ManageInfo extends AppCompatActivity {
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(ManageInfo.this, SymptomsDiary.class));
+            startActivity(new Intent(ManageInfo.this, ViewSymptomsDiary.class));
             finish();
         }
         else if(id == R.id.action_manage_info){

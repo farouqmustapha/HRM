@@ -59,7 +59,7 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(SymptomsDiary.this, SymptomsDiary.class));
+            startActivity(new Intent(SymptomsDiary.this, ViewSymptomsDiary.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
