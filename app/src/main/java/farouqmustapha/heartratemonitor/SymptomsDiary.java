@@ -1,14 +1,16 @@
 package farouqmustapha.heartratemonitor;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -16,14 +18,21 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
 public class SymptomsDiary extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
 
-    EditText txtDate, txtTime;
+    private EditText txtActivity, txtDate, txtTime, txtRemarks;
+    private FloatingActionButton saveFab;
+    private RadioButton radio1, radio2,radio3, radio4, radio5, radio6, radio7, radio8;
+    private RadioButton[] radioArray ={radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8};
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
@@ -32,11 +41,104 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
         auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_symptoms_diary);
 
+        txtActivity = (EditText) findViewById(R.id.txtActivity);
         txtDate = (EditText) findViewById(R.id.txtDate);
         txtTime = (EditText) findViewById(R.id.txtTime);
+        txtRemarks = (EditText) findViewById(R.id.txtRemarks);
+        radio1 = (RadioButton) findViewById(R.id.radio1);
+        radio2 = (RadioButton) findViewById(R.id.radio2);
+        radio3 = (RadioButton) findViewById(R.id.radio3);
+        radio4 = (RadioButton) findViewById(R.id.radio4);
+        radio5 = (RadioButton) findViewById(R.id.radio5);
+        radio6 = (RadioButton) findViewById(R.id.radio6);
+        radio7 = (RadioButton) findViewById(R.id.radio7);
+        radio8 = (RadioButton) findViewById(R.id.radio8);
+        saveFab = (FloatingActionButton) findViewById(R.id.saveFab);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+
+        final AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference symptomsDiaryRef = mDatabase.child("Users").child(uid).child("symptomsDiary").push();
 
         txtDate.setOnClickListener(this);
         txtTime.setOnClickListener(this);
+
+        saveFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                String activity = txtActivity.getText().toString();
+                String date = txtDate.getText().toString();
+                String time = txtTime.getText().toString();
+                String remarks = txtRemarks.getText().toString();
+                String painArea = new String();
+
+                if (radio1.isChecked()){
+                    painArea = "radio1";
+                }
+                else if (radio2.isChecked()){
+                    painArea = "radio2";
+                }
+                else if (radio3.isChecked()){
+                    painArea = "radio3";
+                }
+                else if (radio4.isChecked()){
+                    painArea = "radio4";
+                }
+                else if (radio5.isChecked()){
+                    painArea = "radio5";
+                }
+                else if (radio6.isChecked()){
+                    painArea = "radio6";
+                }
+                else if (radio7.isChecked()){
+                    painArea = "radio7";
+                }
+                else if (radio8.isChecked()){
+                    painArea = "radio8";
+                }
+
+                if (!activity.isEmpty() && !date.isEmpty() && !time.isEmpty() && !painArea.isEmpty()){
+                    symptomsDiaryRef.setValue(new Symptom(activity, date, time, remarks, painArea));
+                    Toast.makeText(getApplicationContext(), "Your symptom has been logged to the system.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else{
+                    String errorString = new String();
+                    if (activity.isEmpty()){
+                        errorString = errorString + "\nCurrent Activity";
+                    }
+                    if (date.isEmpty()){
+                        errorString = errorString + "\nDate";
+                    }
+                    if (time.isEmpty()){
+                        errorString = errorString + "\nTime";
+                    }
+                    if (painArea.isEmpty()){
+                        errorString = errorString + "\nPain Area";
+                    }
+
+
+
+                    dlgAlert.setMessage(errorString);
+                    dlgAlert.setTitle("Please Enter :");
+                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
+
+                    dlgAlert.setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                }
+
+            }
+        });
     }
 
     @Override
