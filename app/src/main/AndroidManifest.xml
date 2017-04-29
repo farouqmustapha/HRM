@@ -26,12 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login" />
-        <activity android:name=".HeartRate" />
+        <activity android:name=".Login" android:label="Login"/>
+        <activity android:name=".HeartRate" android:label="Real Time Heart Rate"/>
         <activity android:name=".ResetPassword" />
-        <activity android:name=".SymptomsDiary" />
-        <activity android:name=".ManageInfo" />
-        <activity android:name=".ViewSymptomsDiary"></activity>
+        <activity android:name=".SymptomsDiary" android:label="Update Symptoms Diary"/>
+        <activity android:name=".ManageInfo" android:label="Manage Personal Info"/>
+        <activity android:name=".ViewSymptomsDiary" android:label="Symptoms Diary"/>
     </application>
 
 </manifest>
