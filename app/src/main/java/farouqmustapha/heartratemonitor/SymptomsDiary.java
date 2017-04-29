@@ -32,7 +32,6 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
     private EditText txtActivity, txtDate, txtTime, txtRemarks;
     private FloatingActionButton saveFab;
     private RadioButton radio1, radio2,radio3, radio4, radio5, radio6, radio7, radio8;
-    private RadioButton[] radioArray ={radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8};
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override

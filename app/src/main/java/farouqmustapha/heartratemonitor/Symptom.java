@@ -11,6 +11,11 @@ public class Symptom {
     private String time;
     private String remarks;
     private String painArea;
+    private String key;
+
+    public Symptom(){
+        //needed for firebase
+    }
 
     public Symptom(String activity, String date, String time, String remarks, String painArea){
         this.activity = activity;
@@ -58,5 +63,13 @@ public class Symptom {
 
     public void setPainArea(String painArea) {
         this.painArea = painArea;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
