@@ -49,4 +49,12 @@
         <item>AB-</item>
     </string-array>
     <string name="title_activity_heart_rate">HeartRate</string>
+    <string name="radio1">Localized (just under breastbone or larger area of mid-chest; or entire upper chest).</string>
+    <string name="radio2">Common combination of mid-chest, neck and jaw.</string>
+    <string name="radio3">Mid-chest and inside arms. Left arm and shoulder more frequent than the right side.</string>
+    <string name="radio4">Upper abdomen where most often mistaken for indigestion.</string>
+    <string name="radio5">Larger area of chest, neck, jaw and inside arms.</string>
+    <string name="radio6">Lower center of neck, to both sides of upper neck; and jaw from ear to ear.</string>
+    <string name="radio7">Inside right arm from armpit to below elbow; inside arm to waist. Left side is more frequent.</string>
+    <string name="radio8">At the back, between the shoulder blades.</string>
 </resources>

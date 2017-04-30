@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
 
     private EditText txtActivity, txtDate, txtTime, txtRemarks;
     private FloatingActionButton saveFab;
+    private ImageView img1, img2, img3, img4, img5, img6, img7, img8;
     private RadioButton radio1, radio2,radio3, radio4, radio5, radio6, radio7, radio8;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -54,6 +56,15 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
         radio8 = (RadioButton) findViewById(R.id.radio8);
         saveFab = (FloatingActionButton) findViewById(R.id.saveFab);
 
+        img1 = (ImageView)findViewById(R.id.img1);
+        img2 = (ImageView)findViewById(R.id.img2);
+        img3 = (ImageView)findViewById(R.id.img3);
+        img4 = (ImageView)findViewById(R.id.img4);
+        img5 = (ImageView)findViewById(R.id.img5);
+        img6 = (ImageView)findViewById(R.id.img6);
+        img7 = (ImageView)findViewById(R.id.img7);
+        img8 = (ImageView)findViewById(R.id.img8);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
 
@@ -64,6 +75,14 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
 
         txtDate.setOnClickListener(this);
         txtTime.setOnClickListener(this);
+        img1.setOnClickListener(this);
+        img2.setOnClickListener(this);
+        img3.setOnClickListener(this);
+        img4.setOnClickListener(this);
+        img5.setOnClickListener(this);
+        img6.setOnClickListener(this);
+        img7.setOnClickListener(this);
+        img8.setOnClickListener(this);
 
         saveFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -319,7 +338,7 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
 
-                            txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            txtDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
                         }
                     }, mYear, mMonth, mDay);
@@ -339,11 +358,70 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-
-                            txtTime.setText(hourOfDay + ":" + minute);
+                            String sHour, sMinute;
+                            sHour = Integer.toString(hourOfDay);
+                            sMinute = Integer.toString(minute);
+                            if(hourOfDay<10){
+                                sHour = "0" + sHour;
+                            }
+                            if(minute<10){
+                                sMinute = "0" +sMinute;
+                            }
+                            txtTime.setText(sHour + ":" + sMinute);
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
+        }
+
+        if(v instanceof ImageView){
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            String description = new String();
+
+            switch(v.getId()){
+                case R.id.img1:
+                    description = getString(R.string.radio1);
+                    break;
+
+                case R.id.img2:
+                    description = getString(R.string.radio2);
+                    break;
+
+                case R.id.img3:
+                    description = getString(R.string.radio3);
+                    break;
+
+                case R.id.img4:
+                    description = getString(R.string.radio4);
+                    break;
+
+                case R.id.img5:
+                    description = getString(R.string.radio5);
+                    break;
+
+                case R.id.img6:
+                    description = getString(R.string.radio6);
+                    break;
+
+                case R.id.img7:
+                    description = getString(R.string.radio7);
+                    break;
+
+                case R.id.img8:
+                    description = getString(R.string.radio8);
+                    break;
+            }
+            dlgAlert.setMessage(description);
+            dlgAlert.setTitle("Description:");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+
+            dlgAlert.setPositiveButton("Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
         }
     }
 
