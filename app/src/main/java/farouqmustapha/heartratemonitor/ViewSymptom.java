@@ -117,6 +117,7 @@ public class ViewSymptom extends AppCompatActivity {
             public void onClick(View v) {
                 symptomsDiaryRef.removeEventListener(listener);
                 symptomsDiaryRef.removeValue();
+                Toast.makeText(getApplicationContext(), "The symptom entry is successfully deleted!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

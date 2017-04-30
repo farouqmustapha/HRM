@@ -91,7 +91,6 @@ public class ViewSymptomsDiary extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Symptom symptom = symptomList.get(position);
-                Toast.makeText(getApplicationContext(), symptom.getActivity() + " is selected!\nKey :" +symptom.getKey(), Toast.LENGTH_SHORT).show();
                 Intent mIntent = new Intent(ViewSymptomsDiary.this, ViewSymptom.class);
                 mIntent.putExtra("KEY", symptom.getKey());
                 startActivity(mIntent);
