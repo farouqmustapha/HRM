@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Collections;
 
-public class ViewSymptom extends AppCompatActivity {
+public class ViewSymptomActivity extends AppCompatActivity {
     String KEY = new String();
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;

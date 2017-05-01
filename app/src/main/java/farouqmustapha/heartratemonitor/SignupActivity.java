@@ -18,11 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
 
 import static java.lang.Boolean.FALSE;
 
-public class Signup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnSignUp, btnResetPassword;
@@ -38,7 +37,7 @@ public class Signup extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(Signup.this, HeartRate.class));
+            startActivity(new Intent(SignupActivity.this, HeartRateActivity.class));
             finish();
         }
         setContentView(R.layout.activity_signup);
@@ -56,14 +55,14 @@ public class Signup extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Signup.this, ResetPassword.class));
+                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
             }
         });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Signup.this, Login.class));
+                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
 
             }
         });
@@ -93,16 +92,16 @@ public class Signup extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(Signup.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(Signup.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -115,9 +114,9 @@ public class Signup extends AppCompatActivity {
                                         mDatabase.child("Users").child(uid).child("profileEdited").setValue(FALSE);
 
                                     }
-//                                    startActivity(new Intent(Signup.this, HeartRate.class));
+//                                    startActivity(new Intent(SignupActivity.this, HeartRateActivity.class));
 //                                    finish();
-                                    Intent i = new Intent(Signup.this, HeartRate.class);
+                                    Intent i = new Intent(SignupActivity.this, HeartRateActivity.class);
                                     // set the new task and clear flags
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(i);

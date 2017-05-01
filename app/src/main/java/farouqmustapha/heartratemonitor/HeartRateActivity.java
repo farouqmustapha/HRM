@@ -13,14 +13,12 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HeartRate extends AppCompatActivity implements OnItemSelectedListener, Observer {
+public class HeartRateActivity extends AppCompatActivity implements OnItemSelectedListener, Observer {
 
     private FirebaseAnalytics mFirebaseAnalytics;
     private int MAX_SIZE = 60; //graph max size
@@ -192,22 +190,22 @@ public class HeartRate extends AppCompatActivity implements OnItemSelectedListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(HeartRate.this, HeartRate.class));
+            startActivity(new Intent(HeartRateActivity.this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(HeartRate.this, ViewSymptomsDiary.class));
+            startActivity(new Intent(HeartRateActivity.this, ViewSymptomsDiaryActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
-            startActivity(new Intent(HeartRate.this, ManageInfo.class));
+            startActivity(new Intent(HeartRateActivity.this, ManageInfoActivity.class));
             finish();
         }
         else if (id == R.id.action_logout) {
             auth.signOut();
             //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(HeartRate.this, Login.class));
+                startActivity(new Intent(HeartRateActivity.this, LoginActivity.class));
             }
             finish();
         }
@@ -260,7 +258,7 @@ public class HeartRate extends AppCompatActivity implements OnItemSelectedListen
         if (menuBool) {//did not manually tried to disconnect
             Log.d("Main Activity", "in the app");
             menuBool = false;
-            final HeartRate ac = this;
+            final HeartRateActivity ac = this;
             runOnUiThread(new Runnable() {
                 public void run() {
                     Toast.makeText(getBaseContext(), getString(R.string.couldnotconnect), Toast.LENGTH_SHORT).show();

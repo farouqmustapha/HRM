@@ -20,13 +20,13 @@ import android.util.Log;
 @SuppressLint("NewApi")
 public class H7ConnectThread  extends Thread{
 	
-	HeartRate ac;	
+	HeartRateActivity ac;
 	private BluetoothGatt gat; //gat server
 	private final String HRUUID = "0000180D-0000-1000-8000-00805F9B34FB";
 	static BluetoothGattDescriptor descriptor;
 	static BluetoothGattCharacteristic cc;
 	
-	public H7ConnectThread(BluetoothDevice device, HeartRate ac) {
+	public H7ConnectThread(BluetoothDevice device, HeartRateActivity ac) {
 		Log.i("H7ConnectThread", "Starting H7 reader BTLE");
 		this.ac=ac;
 		gat = device.connectGatt(ac, false, btleGattCallback); // Connect to the device and store the server (gatt)

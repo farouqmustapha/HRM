@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-public class SymptomsDiary extends AppCompatActivity implements View.OnClickListener{
+public class SymptomsDiaryActivity extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
@@ -175,15 +175,15 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(SymptomsDiary.this, HeartRate.class));
+            startActivity(new Intent(SymptomsDiaryActivity.this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(SymptomsDiary.this, ViewSymptomsDiary.class));
+            startActivity(new Intent(SymptomsDiaryActivity.this, ViewSymptomsDiaryActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
-            startActivity(new Intent(SymptomsDiary.this, ManageInfo.class));
+            startActivity(new Intent(SymptomsDiaryActivity.this, ManageInfoActivity.class));
             finish();
         }
         else if (id == R.id.action_logout) {
@@ -191,7 +191,7 @@ public class SymptomsDiary extends AppCompatActivity implements View.OnClickList
             auth.signOut();
             //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(SymptomsDiary.this, Login.class));
+                startActivity(new Intent(SymptomsDiaryActivity.this, LoginActivity.class));
             }
             finish();
         }

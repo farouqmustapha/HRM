@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="farouqmustapha.heartratemonitor.Login">
+    tools:context="farouqmustapha.heartratemonitor.LoginActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -53,7 +53,7 @@
                 android:textColorHint="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Login Button -->
+        <!-- LoginActivity Button -->
 
         <Button
             android:id="@+id/btn_login"
@@ -74,7 +74,7 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
-        <!-- Link to Login Screen -->
+        <!-- Link to LoginActivity Screen -->
 
         <Button
             android:id="@+id/btn_signup"

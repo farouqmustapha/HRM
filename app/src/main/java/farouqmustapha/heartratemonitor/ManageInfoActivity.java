@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ManageInfo extends AppCompatActivity {
+public class ManageInfoActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
@@ -125,15 +125,15 @@ public class ManageInfo extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(ManageInfo.this, HeartRate.class));
+            startActivity(new Intent(ManageInfoActivity.this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(ManageInfo.this, ViewSymptomsDiary.class));
+            startActivity(new Intent(ManageInfoActivity.this, ViewSymptomsDiaryActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
-            startActivity(new Intent(ManageInfo.this, ManageInfo.class));
+            startActivity(new Intent(ManageInfoActivity.this, ManageInfoActivity.class));
             finish();
         }
         else if (id == R.id.action_logout) {
@@ -141,7 +141,7 @@ public class ManageInfo extends AppCompatActivity {
             auth.signOut();
             //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(ManageInfo.this, Login.class));
+                startActivity(new Intent(ManageInfoActivity.this, LoginActivity.class));
             }
             finish();
         }
