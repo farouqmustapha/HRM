@@ -159,45 +159,6 @@ public class SymptomsDiaryActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(SymptomsDiaryActivity.this, HeartRateActivity.class));
-            finish();
-        }
-        else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(SymptomsDiaryActivity.this, ViewSymptomsDiaryActivity.class));
-            finish();
-        }
-        else if(id == R.id.action_manage_info){
-            startActivity(new Intent(SymptomsDiaryActivity.this, ManageInfoActivity.class));
-            finish();
-        }
-        else if (id == R.id.action_logout) {
-            //return true;
-            auth.signOut();
-            //UserInfo user;
-            if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(SymptomsDiaryActivity.this, LoginActivity.class));
-            }
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void onRadioButtonClicked(View v) {
         RadioButton rb1 = (RadioButton) findViewById(R.id.radio1);

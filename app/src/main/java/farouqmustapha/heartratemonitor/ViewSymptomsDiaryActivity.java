@@ -124,15 +124,19 @@ public class ViewSymptomsDiaryActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(ViewSymptomsDiaryActivity.this, HeartRateActivity.class));
+            startActivity(new Intent(this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(ViewSymptomsDiaryActivity.this, ViewSymptomsDiaryActivity.class));
+            startActivity(new Intent(this, ViewSymptomsDiaryActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
-            startActivity(new Intent(ViewSymptomsDiaryActivity.this, ManageInfoActivity.class));
+            startActivity(new Intent(this, ManageInfoActivity.class));
+            finish();
+        }
+        else if(id == R.id.action_emergency_call){
+            startActivity(new Intent(this, EmergencyCallActivity.class));
             finish();
         }
         else if (id == R.id.action_logout) {
@@ -140,7 +144,7 @@ public class ViewSymptomsDiaryActivity extends AppCompatActivity {
             auth.signOut();
             //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(ViewSymptomsDiaryActivity.this, LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
             }
             finish();
         }

@@ -18,6 +18,12 @@
         android:title="Manage Personal Info"
         app:showAsAction="never" ></item>
     <item
+        android:id="@+id/action_emergency_call"
+        android:orderInCategory="100"
+        android:title="Emergency Call"
+        app:showAsAction="never" ></item>
+
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="Logout"

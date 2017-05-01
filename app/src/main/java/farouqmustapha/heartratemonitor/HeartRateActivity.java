@@ -182,6 +182,14 @@ public class HeartRateActivity extends AppCompatActivity implements OnItemSelect
     /**
      * When menu button are pressed
      */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -190,37 +198,32 @@ public class HeartRateActivity extends AppCompatActivity implements OnItemSelect
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(HeartRateActivity.this, HeartRateActivity.class));
+            startActivity(new Intent(this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(HeartRateActivity.this, ViewSymptomsDiaryActivity.class));
+            startActivity(new Intent(this, ViewSymptomsDiaryActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
-            startActivity(new Intent(HeartRateActivity.this, ManageInfoActivity.class));
+            startActivity(new Intent(this, ManageInfoActivity.class));
+            finish();
+        }
+        else if(id == R.id.action_emergency_call){
+            startActivity(new Intent(this, EmergencyCallActivity.class));
             finish();
         }
         else if (id == R.id.action_logout) {
+            //return true;
             auth.signOut();
             //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(HeartRateActivity.this, LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
             }
             finish();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     /**

@@ -125,15 +125,19 @@ public class ManageInfoActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(ManageInfoActivity.this, HeartRateActivity.class));
+            startActivity(new Intent(this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(ManageInfoActivity.this, ViewSymptomsDiaryActivity.class));
+            startActivity(new Intent(this, ViewSymptomsDiaryActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
-            startActivity(new Intent(ManageInfoActivity.this, ManageInfoActivity.class));
+            startActivity(new Intent(this, ManageInfoActivity.class));
+            finish();
+        }
+        else if(id == R.id.action_emergency_call){
+            startActivity(new Intent(this, EmergencyCallActivity.class));
             finish();
         }
         else if (id == R.id.action_logout) {
@@ -141,7 +145,7 @@ public class ManageInfoActivity extends AppCompatActivity {
             auth.signOut();
             //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                startActivity(new Intent(ManageInfoActivity.this, LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
             }
             finish();
         }
