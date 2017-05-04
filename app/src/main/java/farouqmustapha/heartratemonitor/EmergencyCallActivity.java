@@ -1,11 +1,12 @@
 package farouqmustapha.heartratemonitor;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,22 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.IntentSender;
 import android.content.IntentSender.SendIntentException;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,6 +41,12 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.LocationListener;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.google.android.gms.common.api.GoogleApiClient.*;
 
@@ -56,6 +54,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
     private ImageButton buttonSend;
+    private Button buttonTemplate;
     private EditText textPhoneNo, textSMS;
     String _latitude, _longitude;
     GoogleApiClient mGoogleApiClient;
@@ -64,8 +63,8 @@ public class EmergencyCallActivity extends AppCompatActivity implements
     private int mLastEvent = MotionEvent.ACTION_UP;
 
     private FirebaseAuth auth;
-
-
+    private DatabaseReference mDatabase;
+    String profileEdited = "false";
 
 
     @Override
@@ -73,10 +72,49 @@ public class EmergencyCallActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_call);
         auth = FirebaseAuth.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference appDataRef = mDatabase.child("Users").child(uid).child("appData");
+        final DatabaseReference emergencyPhoneRef = mDatabase.child("Users").child(uid).child("personalInfo").child("emergencyNumber");
 
         buttonSend = (ImageButton) findViewById(R.id.buttonSend);
+        buttonTemplate = (Button) findViewById(R.id.buttonTemplate);
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
+
+        appDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                textSMS.setText((String) dataSnapshot.child("messageTemplate").getValue());
+                profileEdited = (String) dataSnapshot.child("profileEdited").getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        emergencyPhoneRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                textPhoneNo.setText((String) dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        buttonTemplate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                appDataRef.child("messageTemplate").setValue(textSMS.getText().toString());
+                Toast.makeText(getApplicationContext(),"Template has been saved!",Toast.LENGTH_LONG);
+            }
+        });
+
         final Vibrator v = (Vibrator) getApplicationContext().getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 
 
@@ -102,7 +140,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
                     if(!_latitude.isEmpty()&&!_longitude.isEmpty()) {
                         String phoneNo = textPhoneNo.getText().toString();
                         String sms = textSMS.getText().toString();
-                        //google.com/maps/?q=<lat>,<long>
+                        //creating hyperlink for google maps :google.com/maps/?q=<lat>,<long>
                         sms = sms + "\nMy Current Location : " + "google.com/maps/?q=" + _latitude + "," + _longitude;
                         sms = sms + "\n\nThis message is sent using Pulse Keeper application.";
 
@@ -130,19 +168,23 @@ public class EmergencyCallActivity extends AppCompatActivity implements
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 mLastEvent = arg1.getAction();
-                switch (arg1.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.vibrate(250);
-                        handel.postDelayed(runr,3000);
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    default:
-                        handel.removeCallbacks(runr);
-                        break;
-
+                if(!profileEdited.isEmpty() && profileEdited.equals("true")) {
+                    switch (arg1.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            v.vibrate(250);
+                            handel.postDelayed(runr, 3000);
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            break;
+                        case MotionEvent.ACTION_UP:
+                        default:
+                            handel.removeCallbacks(runr);
+                            break;
+                    }
                 }
+                else
+                    Toast.makeText(getApplicationContext(), "Please update your personal information first!", Toast.LENGTH_LONG).show();
+
                 return true;
             }
         });
@@ -262,16 +304,6 @@ public class EmergencyCallActivity extends AppCompatActivity implements
             /*Getting the location after aquiring location service*/
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
-
-//            if (mLastLocation != null) {
-//                _progressBar.setVisibility(View.INVISIBLE);
-//                _latitude.setText("Latitude: " + String.valueOf(mLastLocation.getLatitude()));
-//                _longitude.setText("Longitude: " + String.valueOf(mLastLocation.getLongitude()));
-//            } else {
-//                /*if there is no last known location. Which means the device has no data for the loction currently.
-//                * So we will get the current location.
-//                * For this we'll implement Location Listener and override onLocationChanged*/
-//                Log.i("Current Location", "No data for location found");
 
             if (!mGoogleApiClient.isConnected())
                 mGoogleApiClient.connect();

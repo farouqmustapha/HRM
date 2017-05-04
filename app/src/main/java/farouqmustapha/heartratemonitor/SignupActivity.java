@@ -95,7 +95,7 @@ public class SignupActivity extends AppCompatActivity {
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
@@ -107,11 +107,12 @@ public class SignupActivity extends AppCompatActivity {
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if (user != null) {
                                         String uid = user.getUid();
-                                        Toast.makeText(getApplicationContext(), "Current User ID is "+uid, Toast.LENGTH_SHORT).show();
                                         mDatabase = FirebaseDatabase.getInstance().getReference();
-                                        mDatabase.child("Users").child(uid).child("email").setValue(email);
-                                        mDatabase.child("Users").child(uid).child("role").setValue("patient");
-                                        mDatabase.child("Users").child(uid).child("profileEdited").setValue(FALSE);
+                                        mDatabase.child("Users").child(uid).child("appData").child("email").setValue(email);
+                                        mDatabase.child("Users").child(uid).child("appData").child("role").setValue("patient");
+                                        mDatabase.child("Users").child(uid).child("appData").child("profileEdited").setValue("false");
+                                        mDatabase.child("Users").child(uid).child("appData").child("messageTemplate").setValue("");
+
 
                                     }
 //                                    startActivity(new Intent(SignupActivity.this, HeartRateActivity.class));

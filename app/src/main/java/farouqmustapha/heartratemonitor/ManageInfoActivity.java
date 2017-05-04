@@ -51,19 +51,19 @@ public class ManageInfoActivity extends AppCompatActivity {
         spinnerBloodType = (Spinner) findViewById(R.id.spinner);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        user_info.addValueEventListener(new ValueEventListener() {
+        user_info.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                inputName.setText((String) dataSnapshot.child("Name").getValue());
-                inputPhone.setText((String) dataSnapshot.child("Phone").getValue());
-                inputAddress.setText((String) dataSnapshot.child("Address").getValue());
-                inputAge.setText((String) dataSnapshot.child("Age").getValue());
-                inputWeight.setText((String) dataSnapshot.child("Weight").getValue());
-                inputHeight.setText((String) dataSnapshot.child("Height").getValue());
-                inputEmergencyPerson.setText((String) dataSnapshot.child("EmergencyPerson").getValue());
-                inputEmergencyNumber.setText((String) dataSnapshot.child("EmergencyNumber").getValue());
+                inputName.setText((String) dataSnapshot.child("name").getValue());
+                inputPhone.setText((String) dataSnapshot.child("phone").getValue());
+                inputAddress.setText((String) dataSnapshot.child("address").getValue());
+                inputAge.setText((String) dataSnapshot.child("age").getValue());
+                inputWeight.setText((String) dataSnapshot.child("weight").getValue());
+                inputHeight.setText((String) dataSnapshot.child("height").getValue());
+                inputEmergencyPerson.setText((String) dataSnapshot.child("emergencyPerson").getValue());
+                inputEmergencyNumber.setText((String) dataSnapshot.child("emergencyNumber").getValue());
 //                spinnerBloodType.setse
-                String bloodType = (String) dataSnapshot.child("BloodType").getValue();
+                String bloodType = (String) dataSnapshot.child("bloodType").getValue();
                 for (int i=0;i<spinnerBloodType.getCount();i++){
                     if (spinnerBloodType.getItemAtPosition(i).equals(bloodType)){
                         spinnerBloodType.setSelection(i);
@@ -95,15 +95,16 @@ public class ManageInfoActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Your personal information has been updated.", Toast.LENGTH_SHORT).show();
 //                mDatabase = FirebaseDatabase.getInstance().getReference();
 
-                mDatabase.child("Users").child(uid).child("personalInfo").child("Name").setValue(name);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("Phone").setValue(phone);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("Address").setValue(address);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("Age").setValue(age);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("Weight").setValue(weight);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("Height").setValue(height);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("EmergencyPerson").setValue(emergencyPerson);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("EmergencyNumber").setValue(emergencyNumber);
-                mDatabase.child("Users").child(uid).child("personalInfo").child("BloodType").setValue(bloodType);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("name").setValue(name);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("phone").setValue(phone);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("address").setValue(address);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("age").setValue(age);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("weight").setValue(weight);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("height").setValue(height);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("emergencyPerson").setValue(emergencyPerson);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("emergencyNumber").setValue(emergencyNumber);
+                mDatabase.child("Users").child(uid).child("personalInfo").child("bloodType").setValue(bloodType);
+                mDatabase.child("Users").child(uid).child("appData").child("profileEdited").setValue("true");
 
             }
         });
