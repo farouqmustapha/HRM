@@ -17,5 +17,5 @@
         app:elevation="0dp"
         app:srcCompat="@drawable/newsymptoms" />
 
-    <include layout="@layout/content_view_symptoms_diary" />
+    <include layout="@layout/content_recycler_view" />
 </android.support.design.widget.CoordinatorLayout>

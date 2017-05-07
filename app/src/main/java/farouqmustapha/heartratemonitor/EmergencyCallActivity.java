@@ -70,6 +70,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
     String profileEdited = "false";
+    String name;
 
 
     @Override
@@ -81,7 +82,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
         final String uid = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference appDataRef = mDatabase.child("Users").child(uid).child("appData");
-        final DatabaseReference emergencyPhoneRef = mDatabase.child("Users").child(uid).child("personalInfo").child("emergencyNumber");
+        final DatabaseReference emergencyPhoneRef = mDatabase.child("Users").child(uid).child("personalInfo");
         final DatabaseReference ambulanceRequestRef = mDatabase.child("AmbulanceRequest").push();
 
         buttonSend = (ImageButton) findViewById(R.id.buttonSend);
@@ -106,7 +107,8 @@ public class EmergencyCallActivity extends AppCompatActivity implements
         emergencyPhoneRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                textPhoneNo.setText((String) dataSnapshot.getValue());
+                textPhoneNo.setText((String) dataSnapshot.child("emergencyNumber").getValue());
+                name = (String) dataSnapshot.child("name").getValue();
             }
 
             @Override
@@ -147,10 +149,10 @@ public class EmergencyCallActivity extends AppCompatActivity implements
                     if(!_latitude.isEmpty()&&!_longitude.isEmpty()) {
                         if(ambulanceSwitch.isChecked()){
                             DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
-                            String date = df.format(Calendar.getInstance().getTime());
+                            String time = df.format(Calendar.getInstance().getTime());
                             String patientKey = uid;
                             String requestStatus = "Requesting Aid";
-                            ambulanceRequestRef.setValue(new AmbulanceRequest(date, patientKey, requestStatus, _latitude, _longitude));
+                            ambulanceRequestRef.setValue(new AmbulanceRequest(time, patientKey, requestStatus, _latitude, _longitude, name));
                         }
                         String phoneNo = textPhoneNo.getText().toString();
                         String sms = textSMS.getText().toString();
@@ -347,7 +349,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent name in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

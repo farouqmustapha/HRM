@@ -52,7 +52,7 @@ public class HeartRateActivity extends AppCompatActivity implements OnItemSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_rate);
         auth = FirebaseAuth.getInstance();
-        Log.i("Main Activity", "Starting Polar HR monitor main activity");
+        Log.i("Main Activity", "Starting Polar HR monitor main name");
         DataHandler.getInstance().addObserver(this);
 
         //Verify if device is to old for BTLE
@@ -193,12 +193,12 @@ public class HeartRateActivity extends AppCompatActivity implements OnItemSelect
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent name in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(this, HeartRateActivity.class));
+            startActivity(new Intent(this, ViewRequestsActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){

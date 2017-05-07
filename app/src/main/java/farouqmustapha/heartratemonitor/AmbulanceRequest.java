@@ -5,30 +5,33 @@ package farouqmustapha.heartratemonitor;
  */
 
 public class AmbulanceRequest {
-    private String date;
+    private String time;
     private String patientKey;
     private String requestStatus;
     private String patientLatitude;
     private String patientLongitude;
+    private String key;
+    private String name;
 
     public AmbulanceRequest(){
 
     }
 
-    public AmbulanceRequest(String date, String patientKey, String requestStatus, String patientLatitude, String patientLongitude){
-        this.date = date;
+    public AmbulanceRequest(String time, String patientKey, String requestStatus, String patientLatitude, String patientLongitude, String name){
+        this.time = time;
         this.patientKey = patientKey;
         this.requestStatus = requestStatus;
         this.patientLatitude = patientLatitude;
         this.patientLongitude = patientLongitude;
+        this.name = name;
     }
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getRequestStatus() {
@@ -61,5 +64,21 @@ public class AmbulanceRequest {
 
     public void setPatientKey(String patientKey) {
         this.patientKey = patientKey;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

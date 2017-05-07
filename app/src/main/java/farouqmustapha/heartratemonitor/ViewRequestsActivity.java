@@ -1,5 +1,6 @@
 package farouqmustapha.heartratemonitor;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,33 +26,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ViewSymptomsDiaryActivity extends AppCompatActivity {
-    private FloatingActionButton addFab;
+public class ViewRequestsActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
 
-    private List<Symptom> symptomList = new ArrayList<>();
+    private List<AmbulanceRequest> requestList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private SymptomAdapter mAdapter;
+    private RequestAdapter mAdapter;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_symptoms_diary);
+        setContentView(R.layout.activity_view_requests);
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference symptomsDiary = mDatabase.child("Users").child(uid).child("symptomsDiary");
-
-        addFab = (FloatingActionButton) findViewById(R.id.addFab);
+        DatabaseReference symptomsDiary = mDatabase.child("AmbulanceRequest");
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        mAdapter = new SymptomAdapter(symptomList);
+        mAdapter = new RequestAdapter(requestList);
 
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -62,14 +61,16 @@ public class ViewSymptomsDiaryActivity extends AppCompatActivity {
         symptomsDiary.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                symptomList.clear();
-                for (DataSnapshot symptomSnapshot: dataSnapshot.getChildren()) {
-                    Symptom symptom = symptomSnapshot.getValue(Symptom.class);
-                    symptom.setKey(symptomSnapshot.getKey());
-                    symptomList.add(symptom);
-                    Log.d("Symptom KEY :",symptomSnapshot.getKey());
+                requestList.clear();
+                for (DataSnapshot ambulanceRequestSnapshot: dataSnapshot.getChildren()) {
+                    AmbulanceRequest ambulanceRequest = ambulanceRequestSnapshot.getValue(AmbulanceRequest.class);
+                    ambulanceRequest.setKey(ambulanceRequestSnapshot.getKey());
+                    if(ambulanceRequest.getRequestStatus().equals("Requesting Aid")) {
+                        requestList.add(ambulanceRequest);
+                    }
+                    Log.d("AmbulanceRequest KEY :",ambulanceRequestSnapshot.getKey());
                 }
-                Collections.reverse(symptomList);
+                Collections.reverse(requestList);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -79,19 +80,14 @@ public class ViewSymptomsDiaryActivity extends AppCompatActivity {
             }
         });
 
-        addFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                startActivity(new Intent(ViewSymptomsDiaryActivity.this, SymptomsDiaryActivity.class));
-            }
-        });
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Symptom symptom = symptomList.get(position);
-                Intent mIntent = new Intent(ViewSymptomsDiaryActivity.this, ViewSymptomActivity.class);
-                mIntent.putExtra("KEY", symptom.getKey());
+                AmbulanceRequest ambulanceRequest = requestList.get(position);
+                Toast.makeText(getApplicationContext(),ambulanceRequest.getKey(),Toast.LENGTH_LONG).show();
+                Intent mIntent = new Intent(getApplicationContext(), RequestInfoActivity.class);
+                mIntent.putExtra("KEY", ambulanceRequest.getKey());
                 startActivity(mIntent);
             }
 
@@ -124,7 +120,7 @@ public class ViewSymptomsDiaryActivity extends AppCompatActivity {
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
-            startActivity(new Intent(this, ViewSymptomsDiaryActivity.class));
+            startActivity(new Intent(this, ViewRequestsActivity.class));
             finish();
         }
         else if(id == R.id.action_manage_info){
