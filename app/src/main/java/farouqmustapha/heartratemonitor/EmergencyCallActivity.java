@@ -1,6 +1,5 @@
 package farouqmustapha.heartratemonitor;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.IntentSender;
@@ -48,6 +48,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import static com.google.android.gms.common.api.GoogleApiClient.*;
 
 public class EmergencyCallActivity extends AppCompatActivity implements
@@ -56,6 +60,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
     private ImageButton buttonSend;
     private Button buttonTemplate;
     private EditText textPhoneNo, textSMS;
+    private Switch ambulanceSwitch;
     String _latitude, _longitude;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
@@ -77,11 +82,13 @@ public class EmergencyCallActivity extends AppCompatActivity implements
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference appDataRef = mDatabase.child("Users").child(uid).child("appData");
         final DatabaseReference emergencyPhoneRef = mDatabase.child("Users").child(uid).child("personalInfo").child("emergencyNumber");
+        final DatabaseReference ambulanceRequestRef = mDatabase.child("AmbulanceRequest").push();
 
         buttonSend = (ImageButton) findViewById(R.id.buttonSend);
         buttonTemplate = (Button) findViewById(R.id.buttonTemplate);
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
+        ambulanceSwitch = (Switch) findViewById(R.id.ambulanceSwitch);
 
         appDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -138,6 +145,13 @@ public class EmergencyCallActivity extends AppCompatActivity implements
                     // Vibrate for 0.25 seconds
                     v.vibrate(250);
                     if(!_latitude.isEmpty()&&!_longitude.isEmpty()) {
+                        if(ambulanceSwitch.isChecked()){
+                            DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm");
+                            String date = df.format(Calendar.getInstance().getTime());
+                            String patientKey = uid;
+                            String requestStatus = "Requesting Aid";
+                            ambulanceRequestRef.setValue(new AmbulanceRequest(date, patientKey, requestStatus, _latitude, _longitude));
+                        }
                         String phoneNo = textPhoneNo.getText().toString();
                         String sms = textSMS.getText().toString();
                         //creating hyperlink for google maps :google.com/maps/?q=<lat>,<long>
@@ -147,7 +161,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
                         try {
                             SmsManager smsManager = SmsManager.getDefault();
                             smsManager.sendTextMessage(phoneNo, null, sms, null, null);
-                            Toast.makeText(getApplicationContext(), "SMS Sent!",
+                            Toast.makeText(getApplicationContext(), "Emergency message sent!",
                                     Toast.LENGTH_LONG).show();
                         } catch (Exception e) {
                             Toast.makeText(getApplicationContext(),
@@ -167,8 +181,9 @@ public class EmergencyCallActivity extends AppCompatActivity implements
 
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                mLastEvent = arg1.getAction();
                 if(!profileEdited.isEmpty() && profileEdited.equals("true")) {
+                    mLastEvent = arg1.getAction();
+
                     switch (arg1.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             v.vibrate(250);

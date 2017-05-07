@@ -142,7 +142,7 @@ public class SymptomsDiaryActivity extends AppCompatActivity implements View.OnC
 
                     dlgAlert.setMessage(errorString);
                     dlgAlert.setTitle("Please Enter :");
-                    dlgAlert.setPositiveButton("OK", null);
+                    dlgAlert.setPositiveButton("Ok", null);
                     dlgAlert.setCancelable(true);
                     dlgAlert.create().show();
 
