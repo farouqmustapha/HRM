@@ -37,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(SignupActivity.this, HeartRateActivity.class));
+            startActivity(new Intent(SignupActivity.this, EmergencyCallActivity.class));
             finish();
         }
         setContentView(R.layout.activity_signup);
@@ -117,7 +117,7 @@ public class SignupActivity extends AppCompatActivity {
                                     }
 //                                    startActivity(new Intent(SignupActivity.this, HeartRateActivity.class));
 //                                    finish();
-                                    Intent i = new Intent(SignupActivity.this, HeartRateActivity.class);
+                                    Intent i = new Intent(SignupActivity.this, EmergencyCallActivity.class);
                                     // set the new task and clear flags
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(i);
