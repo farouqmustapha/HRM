@@ -47,8 +47,6 @@
             android:label="Symptoms Diary" />
         <activity android:name=".ViewSymptomActivity" />
         <activity android:name=".EmergencyCallActivity" />
-        <activity android:name=".ViewRequestsActivity" />
-        <activity android:name=".RequestInfoActivity"></activity>
     </application>
 
 </manifest>

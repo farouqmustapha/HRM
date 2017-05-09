@@ -15,6 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+//    private String role ="";
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, HeartRateActivity.class));
-            finish();
+                startActivity(new Intent(LoginActivity.this, EmergencyCallActivity.class));
+                finish();
         }
 
         // set the view now
@@ -97,13 +105,27 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(LoginActivity.this, HeartRateActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    Intent i = new Intent(LoginActivity.this, HeartRateActivity.class);
-                                    // set the new task and clear flags
-                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(i);
+                                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                                    final DatabaseReference userRoleRef = mDatabase.child("Users");
+                                    userRoleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.hasChild(auth.getCurrentUser().getUid())) {
+                                                Intent intent = new Intent(LoginActivity.this, EmergencyCallActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                            else{
+                                                auth.signOut();
+                                                Toast.makeText(getApplicationContext(),R.string.auth_failed,Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
                             }
                         });

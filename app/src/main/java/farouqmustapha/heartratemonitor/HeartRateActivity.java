@@ -198,7 +198,7 @@ public class HeartRateActivity extends AppCompatActivity implements OnItemSelect
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
-            startActivity(new Intent(this, ViewRequestsActivity.class));
+            startActivity(new Intent(this, HeartRateActivity.class));
             finish();
         }
         else if(id == R.id.action_symptoms_diary){
