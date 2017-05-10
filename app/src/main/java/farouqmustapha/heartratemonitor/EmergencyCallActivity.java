@@ -120,7 +120,7 @@ public class EmergencyCallActivity extends AppCompatActivity implements
         buttonTemplate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 appDataRef.child("messageTemplate").setValue(textSMS.getText().toString());
-                Toast.makeText(getApplicationContext(),"Template has been saved!",Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(),"Template has been saved!",Toast.LENGTH_LONG).show();
             }
         });
 

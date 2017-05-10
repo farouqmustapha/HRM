@@ -2,25 +2,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="farouqmustapha.heartratemonitor.MainActivity">
+
     <item
-        android:id="@+id/action_heart_rate"
+        android:id="@+id/action_emergency_call"
         android:orderInCategory="100"
-        android:title="Heart Rate"
+        android:title="Emergency Call"
         app:showAsAction="never" ></item>
+
     <item
         android:id="@+id/action_symptoms_diary"
         android:orderInCategory="100"
         android:title="Symptoms Diary"
         app:showAsAction="never" ></item>
+
+    <item
+        android:id="@+id/action_heart_rate"
+        android:orderInCategory="100"
+        android:title="Heart Rate"
+        app:showAsAction="never" ></item>
+
     <item
         android:id="@+id/action_manage_info"
         android:orderInCategory="100"
         android:title="Manage Personal Info"
-        app:showAsAction="never" ></item>
-    <item
-        android:id="@+id/action_emergency_call"
-        android:orderInCategory="100"
-        android:title="Emergency Call"
         app:showAsAction="never" ></item>
 
     <item
