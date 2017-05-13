@@ -12,10 +12,8 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.util.Log;
 
-/**
+/*
  * This thread to the connection with the bluetooth device
- * @author Marco
- *
  */
 @SuppressLint("NewApi")
 public class H7ConnectThread  extends Thread{
@@ -48,7 +46,7 @@ public class H7ConnectThread  extends Thread{
 	//Callback from the bluetooth 
 	private final BluetoothGattCallback btleGattCallback = new BluetoothGattCallback() {
 		 
-		//Called everytime sensor send data
+		//Called every time sensor send data
 		@Override
 	    public void onCharacteristicChanged(BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic) {
 	    	byte[] data = characteristic.getValue();

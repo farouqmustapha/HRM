@@ -62,7 +62,6 @@ public class ManageInfoActivity extends AppCompatActivity {
                 inputHeight.setText((String) dataSnapshot.child("height").getValue());
                 inputEmergencyPerson.setText((String) dataSnapshot.child("emergencyPerson").getValue());
                 inputEmergencyNumber.setText((String) dataSnapshot.child("emergencyNumber").getValue());
-//                spinnerBloodType.setse
                 String bloodType = (String) dataSnapshot.child("bloodType").getValue();
                 for (int i=0;i<spinnerBloodType.getCount();i++){
                     if (spinnerBloodType.getItemAtPosition(i).equals(bloodType)){
@@ -77,7 +76,6 @@ public class ManageInfoActivity extends AppCompatActivity {
             }
         });
 
-//        mDatabase.child("Users").child(uid).child("personalInfo").child("Name").getValue();
 
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,7 +91,6 @@ public class ManageInfoActivity extends AppCompatActivity {
                 String bloodType = spinnerBloodType.getSelectedItem().toString();
 
                 Toast.makeText(getApplicationContext(), "Your personal information has been updated.", Toast.LENGTH_SHORT).show();
-//                mDatabase = FirebaseDatabase.getInstance().getReference();
 
                 mDatabase.child("Users").child(uid).child("personalInfo").child("name").setValue(name);
                 mDatabase.child("Users").child(uid).child("personalInfo").child("phone").setValue(phone);
@@ -112,19 +109,14 @@ public class ManageInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent name in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_heart_rate) {
             startActivity(new Intent(this, HeartRateActivity.class));
             finish();
@@ -142,9 +134,7 @@ public class ManageInfoActivity extends AppCompatActivity {
             finish();
         }
         else if (id == R.id.action_logout) {
-            //return true;
             auth.signOut();
-            //UserInfo user;
             if(FirebaseAuth.getInstance().getCurrentUser()==null){
                 startActivity(new Intent(this, LoginActivity.class));
             }

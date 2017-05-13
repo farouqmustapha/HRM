@@ -117,10 +117,6 @@ public class SignupActivity extends AppCompatActivity {
                                     }
                                     startActivity(new Intent(SignupActivity.this, HeartRateActivity.class));
                                     finish();
-//                                    Intent i = new Intent(SignupActivity.this, EmergencyCallActivity.class);
-//                                    // set the new task and clear flags
-//                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                    startActivity(i);
                                 }
                             }
                         });
