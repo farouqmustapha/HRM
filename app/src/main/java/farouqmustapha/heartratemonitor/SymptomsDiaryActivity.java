@@ -120,7 +120,7 @@ public class SymptomsDiaryActivity extends AppCompatActivity implements View.OnC
 
                 if (!activity.isEmpty() && !date.isEmpty() && !time.isEmpty() && !painArea.isEmpty()){
                     symptomsDiaryRef.setValue(new Symptom(activity, date, time, remarks, painArea));
-                    Toast.makeText(getApplicationContext(), "Your symptom has been logged to the system.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Your symptom has been added to the system.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{
